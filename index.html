@@ -1,0 +1,203 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+  <title>My LIFF App</title>
+  <style>
+    body { padding: 200px }
+    button { display: none; width: 50%; padding: 16px 0; margin: 16px auto }
+  </style>
+</head>
+<body>
+  <button id="btnShare" onclick="sendShare()">Share Target Picker</button>
+  <button id="btnLogin" onclick="liff.login()">Log In</button>
+  <button id="btnLogOut" onclick="logOut()">Log Out</button>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
+  <script>
+    async function sendShare() {
+      const result = await liff.shareTargetPicker([
+      {
+  "type": "flex",
+  "altText": "ผลคะแนนการประกวดโครงงานคุณธรรม รอบชิงชนะเลิศระดับประเทศ",
+  "contents":  {
+  "type": "bubble",
+  "size": "giga",
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "image",
+        "url": "https://www.img.in.th/images/778ec24d3b1b55122ab66e50db6bb660.png",
+        "animated": true,
+        "size": "full",
+        "aspectRatio": "15:7",
+        "aspectMode": "cover",
+        "action": {
+          "type": "uri",
+          "label": "action",
+          "uri": "https://liff.line.me/1655879041-9LYb0JAN"
+        }
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [],
+        "position": "absolute",
+        "paddingAll": "40px"
+      }
+    ],
+    "backgroundColor": "#5ec862",
+    "paddingAll": "0px"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "image",
+        "url": "https://sv1.picz.in.th/images/2022/02/06/nM5pcP.png",
+        "size": "full",
+        "aspectRatio": "14:7",
+        "action": {
+          "type": "uri",
+          "label": "action",
+          "uri": "https://drive.google.com/file/d/1JbJAYukn5OJXxQGAxh-Qy8FXGoMjZ1ck/view?usp=sharing"
+        }
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "separator",
+                "margin": "md"
+              },
+              {
+                "type": "image",
+                "url": "https://sv1.picz.in.th/images/2022/02/06/nM5LTl.png",
+                "size": "full",
+                "aspectRatio": "13:7",
+                "action": {
+                  "type": "uri",
+                  "label": "action",
+                  "uri": "https://drive.google.com/file/d/1suc6bBd85NFFW1AtIfSAMyvtUmLhCQ9b/view?usp=sharing"
+                }
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": []
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "separator",
+                    "margin": "md"
+                  },
+                  {
+                    "type": "image",
+                    "url": "https://sv1.picz.in.th/images/2022/02/06/nM5mvv.png",
+                    "size": "full",
+                    "aspectRatio": "13:7",
+                    "action": {
+                      "type": "uri",
+                      "label": "action",
+                      "uri": "https://drive.google.com/file/d/1U4EygRnRluHHVWDP2LYvt9BOQQ6ZcAus/view?usp=sharing"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": []
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "separator",
+                    "margin": "md"
+                  },
+                  {
+                    "type": "image",
+                    "url": "https://sv1.picz.in.th/images/2022/02/06/nM5IqN.png",
+                    "size": "full",
+                    "aspectRatio": "13:7",
+                    "action": {
+                      "type": "uri",
+                      "label": "action",
+                      "uri": "https://drive.google.com/file/d/1vQPwhtT4gCO2Yr4Q3Eyy3QQNtn_4SiBR/view?usp=sharing"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "#FFE2EF"
+  }
+}
+        }
+      ])
+      if (result) {
+        alert(`[${result.status}] Message sent!`)
+      } else {
+        const [majorVer, minorVer, patchVer] = (liff.getLineVersion() || "").split('.');
+
+        if (minorVer === undefined) {
+          alert('ShareTargetPicker was canceled in external browser')
+          return
+        }
+
+        if (parseInt(majorVer) >= 10 && parseInt(minorVer) >= 10 && parseInt(patchVer) > 0) {
+          alert('ShareTargetPicker was canceled in LINE app')
+        }
+      }
+    }
+    function logOut() {
+      liff.logout()
+      window.location.reload()
+    }
+    async function main() {
+      await liff.init({ liffId: "1655879041-9LYb0JAN" })
+      if (liff.isLoggedIn()) {
+        document.getElementById("btnShare").style.display = "block"
+        if (!liff.isInClient()) {
+          document.getElementById("btnLogOut").style.display = "block"
+        }
+      } else {
+        document.getElementById("btnLogin").style.display = "block"
+      }
+    }
+    main()
+  </script>
+</body>
+</html>
